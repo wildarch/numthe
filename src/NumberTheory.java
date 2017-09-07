@@ -9,13 +9,10 @@ import java.util.stream.Stream;
 public class NumberTheory {
 
     public static void main(String[] args) {
-        InputStream stream = null;
         try {
             Stream<String> input = Files.lines(Paths.get("example-test.txt"));
             InputParser parser = new InputParser(input);
             System.out.println(parser);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (InputParser.ParseException e) {
             System.err.println("Could not parse: " + e.getMessage());
             e.printStackTrace();

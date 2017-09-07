@@ -15,9 +15,9 @@ public class InputParser {
 
     private int radix = 0;
     private Operation operation;
-    private String x;
-    private String y;
-    private String answer;
+    private LargeNumber x;
+    private LargeNumber y;
+    private LargeNumber answer;
 
     public InputParser(Stream<String> input) throws ParseException {
         input
@@ -28,7 +28,10 @@ public class InputParser {
                 switch(parts[0]) {
                     case "#":
                         if(parts.length > 2 && parts[1].equals("[answer]")) {
-                            answer = parts[2];
+                            if(radix == 0) {
+                                throw new ParseException("Found [answer], but no [radix] yet");
+                            }
+                            answer = LargeNumber.parseNumber(parts[2], radix);
                         }
                         // Do nothing for ordinary comments
                         break;
@@ -48,10 +51,16 @@ public class InputParser {
                         operation = Operation.Karatsuba;
                         break;
                     case "[x]":
-                        x = parts[1];
+                        if(radix == 0) {
+                            throw new ParseException("Found [x], but no [radix] yet");
+                        }
+                        x = LargeNumber.parseNumber(parts[1], radix);
                         break;
                     case "[y]":
-                        y = parts[1];
+                        y = LargeNumber.parseNumber(parts[1], radix);
+                        if(radix == 0) {
+                            throw new ParseException("Found [y], but no [radix] yet");
+                        }
                         break;
                     default:
                         throw new ParseException("Could not parse line: `" + String.join(" ", parts) + "`");
