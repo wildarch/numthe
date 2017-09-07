@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  */
 public class InputParser {
 
-    private int radix;
+    private int radix = 0;
     private Operation operation;
     private String x;
     private String y;
@@ -57,6 +57,19 @@ public class InputParser {
                         throw new ParseException("Could not parse line: `" + String.join(" ", parts) + "`");
                 }
             });
+        if (radix == 0) {
+            throw new ParseException("No radix in input!");
+        }
+        if (operation == null) {
+            throw new ParseException("No operation in input");
+        }
+        if (x == null) {
+            throw new ParseException("No x in input");
+        }
+        if (y == null) {
+            throw new ParseException("No y in input");
+        }
+        // Answer is optional
     }
 
     @Override
@@ -72,15 +85,13 @@ public class InputParser {
         return s;
     }
 
-    public static class ParseException extends RuntimeException {
-        private String message;
-
-        public ParseException(String msg) {
-            message = msg;
+    static class ParseException extends RuntimeException {
+        ParseException(String message) {
+            super(message);
         }
     }
 
-    public static enum Operation {
+    public enum Operation {
         Add,
         Subtract,
         Multiply,

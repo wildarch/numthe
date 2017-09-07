@@ -17,6 +17,7 @@ public class NumberTheory {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (InputParser.ParseException e) {
+            System.err.println("Could not parse: " + e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
