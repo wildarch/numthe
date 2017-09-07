@@ -12,15 +12,8 @@ data class LargeNumber(
 
         /**
          * The sign of the number.
-         *
-         * - `1` for positive numbers.
-         * - `-1` for negative numbers.
-         *
-         * See also constants [POSITIVE] and [NEGATIVE].
-         *
-         * A number of 0 has sign `1`.
          */
-        val sign: Int = 1,
+        val sign: Sign = Sign.POSITIVE,
 
         /**
          * A list containing all the digits in the number.
@@ -43,13 +36,13 @@ data class LargeNumber(
         val ZERO_BASE_TEN = LargeNumber(10, 0)
 
         /**
-         * Sign of a positive number (`1`).
+         * Integer representation of a sign of a positive number (`1`).
          */
         @JvmStatic
         val POSITIVE = 1
 
         /**
-         * Sign of a negative number (`-1`).
+         * Integer representation of a sign of a negative number (`-1`).
          */
         @JvmStatic
         val NEGATIVE = -1
@@ -62,14 +55,30 @@ data class LargeNumber(
         @JvmStatic
         fun parseNumber(digitString: String, base: Int): LargeNumber {
             val digitList: MutableList<Int> = ArrayList()
-            var sign = POSITIVE
+            var sign = Sign.POSITIVE
+            var begin = true
 
             for (char in digitString) {
+                // Detect negative sign.
                 if (char == '-') {
-                    sign = NEGATIVE
+                    sign = Sign.NEGATIVE
                     continue
                 }
 
+                // Check correct characters
+                if (char in '0'..'9' || char in 'a'..'f' || char in 'A'..'F') {
+                    throw IllegalArgumentException("Digit '$char' in digit string is not [0-9a-fA-F].")
+                }
+
+                // Skip leading zeroes.
+                if (begin && char == '0') {
+                    continue
+                }
+                else {
+                    begin = false
+                }
+
+                // Parse digit.
                 val parsedDigit = Integer.parseInt(char.toString(), base)
                 digitList.add(parsedDigit)
             }
@@ -84,12 +93,12 @@ data class LargeNumber(
      * @param base
      *              The base of the number (`2 <= base <= 16`).
      * @param sign
-     *              `1` for positive, `-1` for negative.
+     *              [Sign.POSITIVE] for positive, [Sign.NEGATIVE] for negative.
      * @param digits
      *              An array of all the digits starting with the _most_ significant bit and ending with the _least_
      *              significant bit.
      */
-    constructor(base: Int, sign: Sign, vararg digits: Int) : this(base, sign.sign, digits.toMutableList())
+    constructor(base: Int, sign: Sign, vararg digits: Int) : this(base, sign, digits.toMutableList())
 
     /**
      * Creates a new *positive* number.
@@ -100,13 +109,13 @@ data class LargeNumber(
      *              An array of all the digits starting with the _most_ significant bit and ending with the _least_
      *              significant bit.
      */
-    constructor(base: Int, vararg digits: Int) : this(base, POSITIVE, digits.toMutableList())
+    constructor(base: Int, vararg digits: Int) : this(base, Sign.POSITIVE, digits.toMutableList())
 
     init {
         // Check preconditions.
         require(base in 2..16, { "Base must be >= 2 and <= 16." })
-        require(sign == 1 || sign == -1, { "Sign must be either '-1' (negative) or '1' (positive)." })
         require(!digits.filter { it >= base }.any(), { "Not all digits are smaller than (base) $base: ${digits.joinToString("")}." })
+        require(!digits.filter { it < 0 }.any(), { "No negative digits are allowed." })
     }
 
     /**
@@ -216,19 +225,10 @@ data class LargeNumber(
     }
 
     /**
-     * Prints `base_XXX` where `XXX` is the number without leading zeroes.
+     * Prints `base_XXX` where `XXX` is the number without leading zeroes. Letters are uppercase.
      */
     override fun toString(): String {
-        val signSign = if (sign == 1) "" else "-"
-        return "${base}_$signSign${digits.subList(digits.size - wordCount(), digits.size).joinToString("")}"
-    }
-
-    /**
-     * @author Ruben Schellekens
-     */
-    enum class Sign(val sign: Int) {
-
-        POSITIVE(LargeNumber.POSITIVE),
-        NEGATIVE(LargeNumber.NEGATIVE)
+        val strings = digits.map { Integer.toHexString(it).toUpperCase() }
+        return "${base}_${sign.character}${strings.subList(strings.size - wordCount(), strings.size).joinToString("")}"
     }
 }
