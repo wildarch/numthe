@@ -60,13 +60,13 @@ data class LargeNumber(
 
             for (char in digitString) {
                 // Detect negative sign.
-                if (char == '-') {
+                if (begin && char == '-') {
                     sign = Sign.NEGATIVE
                     continue
                 }
 
                 // Check correct characters
-                if (char in '0'..'9' || char in 'a'..'f' || char in 'A'..'F') {
+                if (char !in '0'..'9' && char !in 'a'..'f' && char !in 'A'..'F') {
                     throw IllegalArgumentException("Digit '$char' in digit string is not [0-9a-fA-F].")
                 }
 

@@ -153,7 +153,7 @@ internal class LargeNumberTest {
 
         // Check all digits in the array, ignore leading zeroes.
         for (i in 2 until string.length) {
-            assertEquals(string[i].toString(), ln[i].toString(), "Compare digits")
+            assertEquals(string[i].toString(), ln[i - 2].toString(), "Compare digits")
         }
     }
 
@@ -174,13 +174,13 @@ internal class LargeNumberTest {
         val ln = LargeNumber.parseNumber("00234190780699", 10)
 
         ln[0] = 4
-        assertEquals("00434190780699", ln.toString(), "Set digit")
+        assertEquals("10_434190780699", ln.toString(), "Set digit")
 
         ln[0] = 5
-        assertEquals("00534190780699", ln.toString(), "Set digit")
+        assertEquals("10_534190780699", ln.toString(), "Set digit")
 
         ln[ln.wordCount() - 1] = 0
-        assertEquals("00534190780690", ln.toString(), "Set digit")
+        assertEquals("10_534190780690", ln.toString(), "Set digit")
     }
 
     @Test(expected = IndexOutOfBoundsException::class)
@@ -198,7 +198,13 @@ internal class LargeNumberTest {
     @Test(expected = IndexOutOfBoundsException::class)
     fun `Set value outside range - Wrong base digit`() {
         val ln = LargeNumber.parseNumber("00234190780699", 10)
-        ln[3] = 17
+
+        try {
+            ln[3] = 17
+        }
+        catch (ex: IllegalArgumentException) {
+            throw IndexOutOfBoundsException()
+        }
     }
 
     @Test
