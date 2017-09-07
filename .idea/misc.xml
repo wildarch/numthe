@@ -5,7 +5,7 @@
     <cabalPath>/usr/bin/cabal</cabalPath>
     <stackPath>/usr/bin/stack</stackPath>
   </component>
-  <component name="ProjectRootManager" version="2" default="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="Java 8 Update 101" project-jdk-type="JavaSDK" />
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">
