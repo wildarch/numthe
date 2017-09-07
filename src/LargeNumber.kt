@@ -1,6 +1,22 @@
 /**
  * A number of at most [Integer.MAX_VALUE] digits in `base ∈ {2,...,16}`.
  *
+ * You can use this class as follows:
+ * - Parse numbers with [LargeNumber.parseNumber], like `LargeNumber.parseNumber("0AF5341", 16)`.
+ * If the first character is `-`, it will be a negative number.
+ * - Create numbers with the constructor (first argument is base, rest is vararg digits),
+ * like `new LargeNumber(2, 1, 0, 0, 0, 1, 1)` creates `100011` in base `2`.
+ * Make negative numbers with added sign: `new LargeNumber(2, Sign.NEGATIVE, 1, 0, 0, 0, 1, 1)`.
+ * - Access digits by index (of LargeNumber `ln`): `ln[index]` (Kotlin) or `ln.get(index)` (Java).
+ * Does NOT ignore leading zeroes.
+ * - Set digits by index (of LargeNumber `ln`): `ln[index] = value` (Kotlin) or `ln.set(index, value)` (Java).
+ * - Get the wordCount without leading zeroes with [wordCount]
+ * - Get the size of the digits including leading zeroes with [size]
+ * - The methods [plus], [minus], [times] and [karatsuba] have to be implemented for the assignment.
+ * For the first 3 you can use the operators `+`, `-` and `*` respectively in Kotlin using operator overloading.
+ * - The default string representation is `b_XXX...` where `b` is the base and `XXX` are the digits (prefixed with `-`
+ * when negative).
+ *
  * @author Ruben Schellekens
  */
 data class LargeNumber(
@@ -137,6 +153,11 @@ data class LargeNumber(
     }
 
     /**
+     * @return The total amount of digits in the number including leading zeroes.
+     */
+    fun size() = digits.size
+
+    /**
      * Multiply to large numbers with the same base using Karatsuba's algorithm.
      *
      * @return `this*other`
@@ -201,7 +222,7 @@ data class LargeNumber(
     }
 
     /**
-     * Get the `index`th digit in the number.
+     * Get the `index`th digit in the number. Does not ignore leading zeroes.
      *
      * @throws IndexOutOfBoundsException When there is no digit at index `index`.
      * @see LargeNumber.digits
