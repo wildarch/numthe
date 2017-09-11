@@ -3,5 +3,5 @@
  */
 public interface Operation {
 
-    public abstract LargeNumber execute(LargeNumber x, LargeNumber y);
+    LargeNumber execute(LargeNumber x, LargeNumber y);
 }
