@@ -186,9 +186,8 @@ data class LargeNumber(
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
 
-        // TODO: Implement primary school addition in new class. Invoke MyAdditionClass(this).add(other).
+        return Add().execute(this, other);
 
-        return ZERO_BASE_TEN
     }
 
     /**
@@ -203,6 +202,7 @@ data class LargeNumber(
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
 
         // TODO: Implement primary school subtraction in new class. Invoke MySubtractionClass(this).subtract(other).
+
 
         return ZERO_BASE_TEN
     }
