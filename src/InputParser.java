@@ -94,6 +94,22 @@ public class InputParser {
         return s;
     }
 
+    public LargeNumber getX() {
+        return this.x;
+    }
+
+    public LargeNumber getY() {
+        return this.y;
+    }
+
+    public LargeNumber getAnswer() {
+        return this.answer;
+    }
+
+    public Operation getOperation() {
+        return this.operation;
+    }
+
     static class ParseException extends RuntimeException {
         ParseException(String message) {
             super(message);
