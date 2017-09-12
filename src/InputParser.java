@@ -115,11 +115,4 @@ public class InputParser {
             super(message);
         }
     }
-
-    public enum Operation {
-        Add,
-        Subtract,
-        Multiply,
-        Karatsuba
-    }
 }

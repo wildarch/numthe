@@ -10,26 +10,11 @@ import java.util.stream.Stream;
 public class NumberTheory {
 
     public static void main(String[] args) {
-        LargeNumber answer = null;
         try {
             Stream<String> input = Files.lines(Paths.get("example-add.txt"));
             InputParser parser = new InputParser(input);
             System.out.println(parser);
-            switch (parser.getOperation()) {
-                case Add:
-                    answer = parser.getX().plus(parser.getY());
-                    break;
-                case Subtract:
-                    answer = parser.getX().minus(parser.getY());
-                    break;
-                case Multiply:
-                    answer = parser.getX().times(parser.getY());
-                    break;
-                case Karatsuba:
-                    answer = parser.getX().karatsuba(parser.getY());
-                    break;
-
-            }
+            LargeNumber answer = parser.getOperation().execute(parser.getX(), parser.getY());
             System.out.println("computed answer: "+answer);
             if (!answer.equals(parser.getAnswer())) {
                 throw new ResultMismatchException("The computed result does not match the result in the input.");

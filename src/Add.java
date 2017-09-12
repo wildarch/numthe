@@ -8,13 +8,12 @@ import java.util.Collections;
 /**
  * Class that implements addition
  */
-public class Add implements Operation {
+public class Add {
     ArrayList<Integer> result;
     LargeNumber x;
     LargeNumber y;
     int base;
 
-    @Override
     public LargeNumber execute(LargeNumber x, LargeNumber y) {
         result = new ArrayList<>();
         this.x = x;
@@ -38,7 +37,7 @@ public class Add implements Operation {
         // Add two digits together, adding the carry if needed
         int sum = c ? x.get(i) + y.get(i) + 1 : x.get(i) + y.get(i);
         // Set carry if sum is larger or equal to base
-        c = sum >= base ? true : false;
+        c = sum >= base;
 
         // If the carry is set, subtract the base
         if (c) sum -= base;
