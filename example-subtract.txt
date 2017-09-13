@@ -1,0 +1,5 @@
+[radix] 16
+[subtract]
+[x] 36d2b5154ab14bfabbf2
+[y] f9d1495cfafe396ae4b1
+# [answer] -c2fe9447b04ced7028bf
