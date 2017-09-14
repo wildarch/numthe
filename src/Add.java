@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Class that implements addition
  *
@@ -8,7 +12,8 @@ public class Add extends AddSubtract {
     /**
      * Solves the addition
      */
-    void solve() {
+    List<Integer> solve(List<Integer> x, List<Integer> y) {
+        ArrayList<Integer> result = new ArrayList<>();
         boolean carry = false;
         for (int i = x.size() - 1; i >= 0; i--) {
             // ADD two digits together, adding the carry if needed
@@ -29,6 +34,8 @@ public class Add extends AddSubtract {
             // If done while having carry, add a one
             result.add(1);
         }
+
+        return result;
     }
 
 }

@@ -31,7 +31,7 @@ data class LargeNumber(
         /**
          * The sign of the number.
          */
-        val sign: Sign = Sign.POSITIVE,
+        var sign: Sign = Sign.POSITIVE,
 
         /**
          * A list containing all the digits in the number.
@@ -194,6 +194,10 @@ data class LargeNumber(
     operator fun plus(other: LargeNumber): LargeNumber {
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
+        if (other.sign == Sign.NEGATIVE) {
+            other.sign = Sign.POSITIVE;
+            return Subtract().execute(this, other);
+        }
 
         return Add().execute(this, other);
     }
@@ -225,9 +229,7 @@ data class LargeNumber(
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
 
-        // TODO: Implement primary school multiplication in new class. Invoke MyMultiplicationClass(this).multiply(other).
-
-        return ZERO_BASE_TEN
+        return Multiply().execute(this, other)
     }
 
     /**
