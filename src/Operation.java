@@ -2,25 +2,26 @@
  * Created by Thomas Brocken on 12-9-2017.
  */
 public enum Operation {
-    Add {
+
+    ADD {
         @Override
         public LargeNumber execute(LargeNumber x, LargeNumber y) {
             return x.plus(y);
         }
     },
-    Subtract {
+    SUBTRACT {
         @Override
         public LargeNumber execute(LargeNumber x, LargeNumber y) {
             return x.minus(y);
         }
     },
-    Multiply {
+    MULTIPLY {
         @Override
         public LargeNumber execute(LargeNumber x, LargeNumber y) {
             return x.times(y);
         }
     },
-    Karatsuba {
+    KARATSUBA {
         @Override
         public LargeNumber execute(LargeNumber x, LargeNumber y) {
             return x.karatsuba(y);
@@ -28,6 +29,6 @@ public enum Operation {
     };
 
     public LargeNumber execute(LargeNumber x, LargeNumber y) {
-        return null;
+        throw new AssertionError("execute is not implemented for " + name());
     }
 }

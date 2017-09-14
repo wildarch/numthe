@@ -15,16 +15,22 @@ public class NumberTheory {
             InputParser parser = new InputParser(input);
             System.out.println(parser);
             LargeNumber answer = parser.getOperation().execute(parser.getX(), parser.getY());
-            System.out.println("answer: "+answer + " (computed)");
-        } catch (InputParser.ParseException e) {
+            System.out.println("answer: " + answer + " (computed)");
+        }
+        catch (InputParser.ParseException e) {
             System.err.println("Could not parse: " + e.getMessage());
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * @author Daan de Graaf
+     */
     static class ResultMismatchException extends RuntimeException {
+
         ResultMismatchException(String message) {
             super(message);
         }

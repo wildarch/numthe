@@ -1,16 +1,14 @@
-/**
- * Created by Erik van Bennekum on 12-9-2017
- * Based on a file by Thomas Brocken on 11-9-2017.
- */
-
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 /**
  * Class that implements (naive) multiplication
+ *
+ * @author Erik van Bennekum
  */
 public class Multiply {
-    ArrayList<Integer> result;
+
+    List<Integer> result;
     Sign sign;
     LargeNumber x;
     LargeNumber y;
@@ -21,7 +19,8 @@ public class Multiply {
         this.x = x;
         this.y = y;
         base = x.getBase();
-        solve(); // Solve the addition, at the rightmost side of the number
+
+        solve();
         //Collections.reverse(result); // Switch around because we scanned from right to left
         return new LargeNumber(base, sign, result);
     }
@@ -30,18 +29,20 @@ public class Multiply {
      * Solves the multiplication with the algorithm from lecture notes
      */
     private void solve() {
-        for (int h = 0; h < x.size()*y.size(); h++) {
+        for (int i = 0; i < x.size() * y.size(); i++) {
             result.add(0);
         }
+
         for (int i = 0; i < x.size() - 1; i++) {
-            int c = 0;
+            int carry = 0;
             for (int j = 0; j < y.size() - 1; j++) {
-                int t = result.get(result.size() - 1 - (i + j)) + x.get(x.size() - 1 - i)*y.get(y.size() - 1 - j) + c;
-                c = t / base;
-                result.set(result.size() - 1 - (i + j), t - c * base);
+                int t = result.get(result.size() - 1 - (i + j)) + x.get(x.size() - 1 - i) * y.get(y.size() - 1 - j) + carry;
+                carry = t / base;
+                result.set(result.size() - 1 - (i + j), t - carry * base);
             }
-            result.set(i + y.size(), c);
+            result.set(i + y.size(), carry);
         }
+
         if (x.getSign() == y.getSign()) {
             this.sign = Sign.POSITIVE;
         }

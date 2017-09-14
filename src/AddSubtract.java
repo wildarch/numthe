@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
- * Created by Thomas Brocken on 13-9-2017.
+ * @author Thomas Brocken
  */
 public abstract class AddSubtract {
-    ArrayList<Integer> result;
-    ArrayList<Integer> x;
-    ArrayList<Integer> y;
+
+    List<Integer> result;
+    List<Integer> x;
+    List<Integer> y;
     int base;
     Sign sign = Sign.POSITIVE;
 
@@ -15,17 +17,23 @@ public abstract class AddSubtract {
         result = new ArrayList<>();
         this.x = new ArrayList<>(n1.getDigits());
         this.y = new ArrayList<>(n2.getDigits());
+
+        // Make sure the numbers have the same word size.
         while (x.size() > y.size()) {
             y.add(0, 0);
         }
         while (x.size() < y.size()) {
             x.add(0, 0);
         }
+
         base = n1.getBase();
-        solve(x.size() - 1, false); // Solve the operation
-        Collections.reverse(result); // Switch around because we scanned from right to left
+        solve(x.size() - 1, false);
+
+        // Switch around because we scanned from right to left
+        Collections.reverse(result);
+
         return new LargeNumber(base, sign, result);
     }
 
-    abstract void solve(int i, boolean c);
+    abstract void solve(int index, boolean carry);
 }

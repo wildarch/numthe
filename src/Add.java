@@ -1,36 +1,42 @@
 /**
- * Created by Thomas Brocken on 11-9-2017.
- */
-
-import java.util.ArrayList;
-import java.util.Collections;
-
-/**
  * Class that implements addition
+ *
+ * @author Thomas Brocken
  */
-public class Add extends AddSubtract{
+public class Add extends AddSubtract {
 
     /**
      * Solves the addition recursively
-     * @param i current index
-     * @param c current carry
+     *
+     * @param index
+     *         current index
+     * @param carry
+     *         current carry
      */
     @Override
-    void solve(int i, boolean c) {
-        if (i < 0) { // Check if we're done
-            if (c) result.add(1); // If done while having carry, add a one
+    void solve(int index, boolean carry) {
+        // Check if we're done
+        if (index < 0) {
+            if (carry) {
+                // If done while having carry, add a one
+                result.add(1);
+            }
+
             return;
         }
-        // Add two digits together, adding the carry if needed
-        int sum = c ? x.get(i) + y.get(i) + 1 : x.get(i) + y.get(i);
+
+        // ADD two digits together, adding the carry if needed
+        int sum = carry ? x.get(index) + y.get(index) + 1 : x.get(index) + y.get(index);
+
         // Set carry if sum is larger or equal to base
-        c = sum >= base;
+        carry = sum >= base;
 
         // If the carry is set, subtract the base
-        if (c) sum -= base;
+        if (carry) {
+            sum -= base;
+        }
         result.add(sum);
-        solve(i - 1, c);
+
+        solve(index - 1, carry);
     }
-
-
 }

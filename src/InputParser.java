@@ -1,11 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Mult;
-import jdk.internal.util.xml.impl.Input;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.ParseException;
-import java.util.Scanner;
 import java.util.stream.Stream;
 
 /**
@@ -21,51 +13,51 @@ public class InputParser {
 
     public InputParser(Stream<String> input) throws ParseException {
         input
-            .map(String::trim)
-            .filter(s -> !s.isEmpty())
-            .map(s -> s.split(" "))
-            .forEach(parts -> {
-                switch(parts[0]) {
-                    case "#":
-                        if(parts.length > 2 && parts[1].equals("[answer]")) {
-                            if(radix == 0) {
-                                throw new ParseException("Found [answer], but no [radix] yet");
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(s -> s.split(" "))
+                .forEach(parts -> {
+                    switch (parts[0]) {
+                        case "#":
+                            if (parts.length > 2 && parts[1].equals("[answer]")) {
+                                if (radix == 0) {
+                                    throw new ParseException("Found [answer], but no [radix] yet");
+                                }
+                                answer = LargeNumber.parseNumber(parts[2], radix);
                             }
-                            answer = LargeNumber.parseNumber(parts[2], radix);
-                        }
-                        // Do nothing for ordinary comments
-                        break;
-                    case "[radix]":
-                        radix = Integer.parseInt(parts[1]);
-                        break;
-                    case "[add]":
-                        operation = Operation.Add;
-                        break;
-                    case "[subtract]":
-                        operation = Operation.Subtract;
-                        break;
-                    case "[multiply]":
-                        operation = Operation.Multiply;
-                        break;
-                    case "[karatsuba]":
-                        operation = Operation.Karatsuba;
-                        break;
-                    case "[x]":
-                        if(radix == 0) {
-                            throw new ParseException("Found [x], but no [radix] yet");
-                        }
-                        x = LargeNumber.parseNumber(parts[1], radix);
-                        break;
-                    case "[y]":
-                        y = LargeNumber.parseNumber(parts[1], radix);
-                        if(radix == 0) {
-                            throw new ParseException("Found [y], but no [radix] yet");
-                        }
-                        break;
-                    default:
-                        throw new ParseException("Could not parse line: `" + String.join(" ", parts) + "`");
-                }
-            });
+                            // Do nothing for ordinary comments
+                            break;
+                        case "[radix]":
+                            radix = Integer.parseInt(parts[1]);
+                            break;
+                        case "[add]":
+                            operation = Operation.ADD;
+                            break;
+                        case "[subtract]":
+                            operation = Operation.SUBTRACT;
+                            break;
+                        case "[multiply]":
+                            operation = Operation.MULTIPLY;
+                            break;
+                        case "[karatsuba]":
+                            operation = Operation.KARATSUBA;
+                            break;
+                        case "[x]":
+                            if (radix == 0) {
+                                throw new ParseException("Found [x], but no [radix] yet");
+                            }
+                            x = LargeNumber.parseNumber(parts[1], radix);
+                            break;
+                        case "[y]":
+                            y = LargeNumber.parseNumber(parts[1], radix);
+                            if (radix == 0) {
+                                throw new ParseException("Found [y], but no [radix] yet");
+                            }
+                            break;
+                        default:
+                            throw new ParseException("Could not parse line: `" + String.join(" ", parts) + "`");
+                    }
+                });
         if (radix == 0) {
             throw new ParseException("No radix in input!");
         }
@@ -111,6 +103,7 @@ public class InputParser {
     }
 
     static class ParseException extends RuntimeException {
+
         ParseException(String message) {
             super(message);
         }

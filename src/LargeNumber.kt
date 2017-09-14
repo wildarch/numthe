@@ -160,7 +160,7 @@ data class LargeNumber(
     fun size() = digits.size
 
     /**
-     * Multiply to large numbers with the same base using Karatsuba's algorithm.
+     * MULTIPLY to large numbers with the same base using KARATSUBA's algorithm.
      *
      * @return `this*other`
      * @throws IllegalArgumentException When the number bases don't match.
@@ -191,7 +191,7 @@ data class LargeNumber(
     }
 
     /**
-     * Subtract the other number from this number (with the same base).
+     * SUBTRACT the other number from this number (with the same base).
      *
      * @return `this-other`
      * @throws IllegalArgumentException When the number bases don't match.
@@ -206,7 +206,7 @@ data class LargeNumber(
     }
 
     /**
-     * Multiply to large numbers with the same base.
+     * MULTIPLY to large numbers with the same base.
      *
      * @return `this*other`
      * @throws IllegalArgumentException When the number bases don't match.
