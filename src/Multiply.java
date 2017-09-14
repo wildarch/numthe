@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class Multiply {
 
-    List<Integer> result;
-    Sign sign;
-    LargeNumber x;
-    LargeNumber y;
-    int base;
+    private List<Integer> result;
+    private Sign sign;
+    private LargeNumber x;
+    private LargeNumber y;
+    private int base;
 
     public LargeNumber execute(LargeNumber x, LargeNumber y) {
         result = new ArrayList<>();
