@@ -13,8 +13,8 @@ public class Subtract extends AddSubtract {
      * Solves the addition recursively
      */
     @Override
-    void solve() {
-        // Check if we're done
+    ArrayList<Integer> solve(List<Integer> x, List<Integer> y) {
+        ArrayList<Integer> result = new ArrayList<>();
         boolean carry = false;
         for (int i = x.size() - 1; i >= 0; i--) {
 
@@ -51,5 +51,7 @@ public class Subtract extends AddSubtract {
             Collections.reverse(result);
             sign = Sign.NEGATIVE;
         }
+
+        return result;
     }
 }
