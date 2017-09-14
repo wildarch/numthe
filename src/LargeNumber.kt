@@ -185,6 +185,10 @@ data class LargeNumber(
     operator fun plus(other: LargeNumber): LargeNumber {
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
+        if (other.sign == Sign.NEGATIVE) {
+            other.sign = Sign.POSITIVE;
+            return Subtract().execute(this, other);
+        }
 
         return Add().execute(this, other);
 
