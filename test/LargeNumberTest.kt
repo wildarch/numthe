@@ -72,6 +72,30 @@ internal class LargeNumberTest {
     }
 
     @Test
+    fun `Split LargeNumber single digit`() {
+        val num = LargeNumber.parseNumber("1", 2)
+        val (a, b) = num.split()
+        assertEquals("2_0", a.toString())
+        assertEquals("2_1", b.toString())
+    }
+
+    @Test
+    fun `Split LargeNumber even`() {
+        val num = LargeNumber.parseNumber("111101", 2)
+        val (a, b) = num.split()
+        assertEquals("2_111", a.toString())
+        assertEquals("2_101", b.toString())
+    }
+
+    @Test
+    fun `Split LargeNumber odd`() {
+        val num = LargeNumber.parseNumber("10101", 2)
+        val (a, b) = num.split()
+        assertEquals("2_10", a.toString())
+        assertEquals("2_101", b.toString())
+    }
+
+    @Test
     fun `Parse large number`() {
         // Positive Binary
         val ln0a = LargeNumber.parseNumber("10101111101010110", 2)
@@ -228,5 +252,11 @@ internal class LargeNumberTest {
         // Hexadecimal negative.
         val ln4b = LargeNumber(16, Sign.NEGATIVE, 2, 13, 4, 13, 9, 15, 14, 8, 0, 6, 10)
         assertEquals("16_-2D4D9FE806A", ln4b.toString(), "ToString base 16 negative")
+    }
+
+    @Test
+    fun `Convert to string for 0 digits`() {
+        val n = LargeNumber(2, Sign.POSITIVE, 0)
+        assertEquals("2_0", n.toString())
     }
 }

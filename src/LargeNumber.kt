@@ -160,7 +160,7 @@ data class LargeNumber(
     fun size() = digits.size
 
     /**
-     * MULTIPLY to large numbers with the same base using KARATSUBA's algorithm.
+     * Multiply to large numbers with the same base using Karatsuba's algorithm.
      *
      * @return `this*other`
      * @throws IllegalArgumentException When the number bases don't match.
@@ -175,6 +175,15 @@ data class LargeNumber(
         return ZERO_BASE_TEN
     }
 
+    fun split(index: Int = wordCount() / 2): Pair<LargeNumber, LargeNumber> {
+        val a = digits.subList(0, index)
+        val b = digits.subList(index, wordCount())
+        return Pair(
+                LargeNumber(base, sign, a),
+                LargeNumber(base, sign, b)
+        )
+    }
+
     /**
      * Adds two large numbers with the same base together.
      *
@@ -187,11 +196,10 @@ data class LargeNumber(
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
 
         return Add().execute(this, other);
-
     }
 
     /**
-     * SUBTRACT the other number from this number (with the same base).
+     * Subtract the other number from this number (with the same base).
      *
      * @return `this-other`
      * @throws IllegalArgumentException When the number bases don't match.
@@ -201,12 +209,13 @@ data class LargeNumber(
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
 
-        return Subtract().execute(this, other);
+        // TODO: Implement primary school subtraction in new class. Invoke MySubtractionClass(this).subtract(other).
 
+        throw NotImplementedError("Subtraction is not yet implemented");
     }
 
     /**
-     * MULTIPLY to large numbers with the same base.
+     * Multiply to large numbers with the same base.
      *
      * @return `this*other`
      * @throws IllegalArgumentException When the number bases don't match.
@@ -250,6 +259,8 @@ data class LargeNumber(
      */
     override fun toString(): String {
         val strings = digits.map { Integer.toHexString(it).toUpperCase() }
-        return "${base}_${sign.character}${strings.subList(strings.size - wordCount(), strings.size).joinToString("")}"
+        var digitsEncoded = strings.subList(strings.size - wordCount(), strings.size).joinToString("");
+        if(digitsEncoded.isEmpty()) digitsEncoded = "0";
+        return "${base}_${sign.character}${digitsEncoded}"
     }
 }
