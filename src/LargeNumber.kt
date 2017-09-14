@@ -231,9 +231,7 @@ data class LargeNumber(
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
 
-        // TODO: Implement primary school subtraction in new class. Invoke MySubtractionClass(this).subtract(other).
-
-        throw NotImplementedError("Subtraction is not yet implemented");
+        return Subtract().execute(this, other)
     }
 
     /**
