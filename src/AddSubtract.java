@@ -8,15 +8,11 @@ import java.util.List;
 public abstract class AddSubtract {
     int base;
     Sign sign = Sign.POSITIVE;
-    LargeNumber n1;
-    LargeNumber n2;
 
     public LargeNumber execute(LargeNumber n1, LargeNumber n2) {
         List<Integer> result;
         ArrayList<Integer> x = new ArrayList<>(n1.getDigits());
         ArrayList<Integer> y = new ArrayList<>(n2.getDigits());
-        this.n1 = n1;
-        this.n2 = n2;
 
         // Make sure the numbers have the same word size.
         while (x.size() > y.size()) {
