@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.collections.HashMap
 
 /**
  * A number of at most [Integer.MAX_VALUE] digits in `base ∈ {2,...,16}`.
@@ -48,12 +49,6 @@ data class LargeNumber(
     companion object {
 
         /**
-         * Instance for number `0` with base `10`.
-         */
-        @JvmStatic
-        val ZERO_BASE_TEN = LargeNumber(10, 0)
-
-        /**
          * Integer representation of a sign of a positive number (`1`).
          */
         @JvmStatic
@@ -64,6 +59,29 @@ data class LargeNumber(
          */
         @JvmStatic
         val NEGATIVE = -1
+
+        /**
+         * Map containing zero constants in all bases.
+         */
+        private val ZEROES = HashMap<Int, LargeNumber>()
+
+        init {
+            for (i in 2..16) {
+                ZEROES.put(i, LargeNumber(i, 0))
+            }
+        }
+
+        /**
+         * Get a large number with value `0` in base `base`.
+         *
+         * @param base
+         *          The base of the number. `2 <= base <= 16`
+         * @return A zero number with the given base.
+         * @throws IllegalArgumentException When the base < 2 or > 16.
+         */
+        @JvmStatic
+        @Throws(IllegalArgumentException::class)
+        fun zero(base: Int) = ZEROES[base] ?: throw IllegalArgumentException("Base must be between 2 and 16 inclusive")
 
         /**
          * Parses a string of digit to a LargeNumer taking account the given base.
@@ -172,7 +190,7 @@ data class LargeNumber(
 
         // TODO: Implement the karatsuba algorithm in new class. Invoke MyKaratsubaClass(this).multiply(other).
 
-        return ZERO_BASE_TEN
+        return zero(10)
     }
 
     /**
