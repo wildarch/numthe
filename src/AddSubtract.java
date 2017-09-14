@@ -27,7 +27,7 @@ public abstract class AddSubtract {
         }
 
         base = n1.getBase();
-        solve(x.size() - 1, false);
+        solve();
 
         // Switch around because we scanned from right to left
         Collections.reverse(result);
@@ -35,5 +35,5 @@ public abstract class AddSubtract {
         return new LargeNumber(base, sign, result);
     }
 
-    abstract void solve(int index, boolean carry);
+    abstract void solve();
 }

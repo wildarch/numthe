@@ -6,37 +6,29 @@
 public class Add extends AddSubtract {
 
     /**
-     * Solves the addition recursively
-     *
-     * @param index
-     *         current index
-     * @param carry
-     *         current carry
+     * Solves the addition
      */
-    @Override
-    void solve(int index, boolean carry) {
-        // Check if we're done
-        if (index < 0) {
+    void solve() {
+        boolean carry = false;
+        for (int i = x.size() - 1; i >= 0; i--) {
+            // ADD two digits together, adding the carry if needed
+            int sum = carry ? x.get(i) + y.get(i) + 1 : x.get(i) + y.get(i);
+
+            // Set carry if sum is larger or equal to base
+            carry = sum >= base;
+
+            // If the carry is set, subtract the base
             if (carry) {
-                // If done while having carry, add a one
-                result.add(1);
+                sum -= base;
             }
-
-            return;
+            result.add(sum);
         }
 
-        // ADD two digits together, adding the carry if needed
-        int sum = carry ? x.get(index) + y.get(index) + 1 : x.get(index) + y.get(index);
 
-        // Set carry if sum is larger or equal to base
-        carry = sum >= base;
-
-        // If the carry is set, subtract the base
         if (carry) {
-            sum -= base;
+            // If done while having carry, add a one
+            result.add(1);
         }
-        result.add(sum);
-
-        solve(index - 1, carry);
     }
+
 }
