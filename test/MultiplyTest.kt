@@ -1,5 +1,4 @@
 import org.junit.Test
-import kotlin.test.assertEquals
 
 /**
  * @author Erik van Bennekum
@@ -9,12 +8,10 @@ import kotlin.test.assertEquals
 
 class MultiplyTest {
 
-    @test
+    @Test
     fun  ArithmeticTest() {
         val ln0 = LargeNumber(10, 2)
         val ln1 = LargeNumber(10, 3)
-        val result = Multiply.execute()
+        val result = Multiply().execute(ln0, ln1)
     }
-
-
 }
