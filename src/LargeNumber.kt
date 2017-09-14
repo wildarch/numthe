@@ -31,7 +31,7 @@ data class LargeNumber(
         /**
          * The sign of the number.
          */
-        val sign: Sign = Sign.POSITIVE,
+        var sign: Sign = Sign.POSITIVE,
 
         /**
          * A list containing all the digits in the number.
