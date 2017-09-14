@@ -216,9 +216,7 @@ data class LargeNumber(
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
 
-        // TODO: Implement primary school multiplication in new class. Invoke MyMultiplicationClass(this).multiply(other).
-
-        return ZERO_BASE_TEN
+        return Multiply().execute(this, other)
     }
 
     /**
