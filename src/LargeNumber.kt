@@ -1,5 +1,5 @@
 import java.util.*
-import kotlin.collections.HashMap
+import kotlin.collections.*
 
 /**
  * A number of at most [Integer.MAX_VALUE] digits in `base ∈ {2,...,16}`.
@@ -230,6 +230,11 @@ data class LargeNumber(
     operator fun minus(other: LargeNumber): LargeNumber {
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
+
+        if (other.sign == Sign.NEGATIVE && this.sign == Sign.POSITIVE) {
+            other.sign = Sign.POSITIVE;
+            return Add().execute(this, other);
+        }
 
         return Subtract().execute(this, other)
     }
