@@ -13,7 +13,9 @@ public class Karatsuba {
      * @return answer
      */
     public LargeNumber execute(LargeNumber x, LargeNumber y) {
-
+        if (x.getDigits().size() == 1) {
+            return x.times(y);
+        }
         // Compute the sign
         Sign sign = Sign.POSITIVE;
         if (x.getSign() != y.getSign()) {
@@ -36,9 +38,9 @@ public class Karatsuba {
         // Because of Karatsuba: xy = x1y1*b^n+(x1y0+x0y1)*b^(n/2)+x0y0
 
         // Compute 3 half length multiplications
-        LargeNumber z2 = x1.times(y1); // z2 = xhi * yhi
-        LargeNumber z0 = x0.times(y0); // z0 = xlo * ylo
-        LargeNumber z1 = (x1.plus(x0)).times(y1.plus(y0)); // z1 = (xhiylo + xloyhi)
+        LargeNumber z2 = x1.karatsuba(y1); // z2 = xhi * yhi
+        LargeNumber z0 = x0.karatsuba(y0); // z0 = xlo * ylo
+        LargeNumber z1 = (x1.plus(x0)).karatsuba(y1.plus(y0)); // z1 = (xhiylo + xloyhi)
 
         z1 = z1.minus(z0).minus(z2); // xhiylo + xloyhi = (xhi +xlo)(yhi +ylo) - xhiyhi - xloylo
 

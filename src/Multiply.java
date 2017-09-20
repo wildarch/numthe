@@ -35,23 +35,23 @@ public class Multiply {
      */
 
     private void solve() {
-        System.out.println("x_size " + x.size());
-        System.out.println("y_size " + y.size());
+        //System.out.println("x_size " + x.size());
+        //System.out.println("y_size " + y.size());
         for (int i = 0; i <= x.size() * y.size(); i++) {
             result.add(0);
-            System.out.println("added 0");
+            //System.out.println("added 0");
         }
 
         for (int i = 0; i <= x.size() - 1; i++) {
             int carry = 0;
             for (int j = 0; j <= y.size() - 1; j++) {
                 int t = result.get(result.size() - 1 - (i + j)) + x.get(x.size() - 1 - i) * y.get(y.size() - 1 - j) + carry;
-                System.out.println("t: " + t);
+                //System.out.println("t: " + t);
                 carry = t / base;
-                System.out.println("carry: " + carry);
+                //System.out.println("carry: " + carry);
                 result.set(result.size() - 1 - (i + j), t - carry * base);
-                System.out.println("On index " + (result.size() - 1 - (i + j)) + " we set " + (t - carry * base));
-                System.out.println("Index " + (result.size() - 1 - (i + j)) + " has value " + result.get(result.size() - 2 - (i + j)));
+                //System.out.println("On index " + (result.size() - 1 - (i + j)) + " we set " + (t - carry * base));
+                //System.out.println("Index " + (result.size() - 1 - (i + j)) + " has value " + result.get(result.size() - 2 - (i + j)));
             }
             result.set(result.size() - i - y.size() - 1, carry);
         }
