@@ -7,7 +7,7 @@ import org.junit.runners.Suite
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
-        AddSubtractTest::class,
+        ArithmeticTest::class,
         LargeNumberTest::class
 )
 object NumberTheoryTestSuite
