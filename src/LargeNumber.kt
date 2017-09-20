@@ -173,6 +173,15 @@ data class LargeNumber(
     }
 
     /**
+     * Shifts this LargeNumber amount spaces to the left
+     */
+    fun shift(amount: Int) {
+        for (i in 1..amount) {
+            this.digits.add(0)
+        }
+    }
+    
+    /**
      * @return The total amount of digits in the number including leading zeroes.
      */
     fun size() = digits.size
@@ -188,14 +197,15 @@ data class LargeNumber(
         // Check precondition.
         require(base == other.base, { "Numbers don't have the same base: $base vs ${other.base}" })
 
-        // TODO: Implement the karatsuba algorithm in new class. Invoke MyKaratsubaClass(this).multiply(other).
-
-        return zero(10)
+        return Karatsuba().execute(this, other);
     }
 
-    fun split(index: Int = wordCount() / 2): Pair<LargeNumber, LargeNumber> {
-        val a = digits.subList(0, index)
-        val b = digits.subList(index, wordCount())
+    fun split(): Pair<LargeNumber, LargeNumber> {
+        if (this.digits.size % 2 == 1) {
+            this.digits.add(0, 0);
+        }
+        val a = digits.subList(0, digits.size/2)
+        val b = digits.subList(digits.size/2, digits.size);
         return Pair(
                 LargeNumber(base, sign, a),
                 LargeNumber(base, sign, b)
