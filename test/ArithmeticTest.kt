@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 /**
  * @author Ruben Schellekens
  */
-class AddSubtractTest {
+class ArithmeticTest {
 
     companion object {
 
@@ -17,7 +17,8 @@ class AddSubtractTest {
 
     inline fun `Test integer base 2-16`(
             bigIntSum: (BigInteger, BigInteger) -> BigInteger,
-            largeNumSum: (LargeNumber, LargeNumber, Int) -> LargeNumber
+            largeNumSum: (LargeNumber, LargeNumber, Int) -> LargeNumber,
+            maxBits: Int = Companion.maxBits
     ) {
         val random = Random(seed)
 
@@ -76,6 +77,42 @@ class AddSubtractTest {
         `Test integer base 2-16`(
                 { a, _ -> a },
                 { a, _, base -> a - LargeNumber.zero(base) }
+        )
+    }
+
+    @Test
+    fun `Multiply random integers base 2-16`() {
+        `Test integer base 2-16`(
+                { a, b -> a.multiply(b) },
+                { a, b, _ -> a * b },
+                2303
+        )
+    }
+
+    @Test
+    fun `Multiply zero base 2-16`() {
+        `Test integer base 2-16`(
+                { _, _ -> BigInteger.ZERO },
+                { a, _, base -> a * LargeNumber.zero(base) },
+                2303
+        )
+    }
+
+    @Test
+    fun `Karatsuba random integers base 2-16`() {
+        `Test integer base 2-16`(
+                { a, b -> a * b },
+                { a, b, _ -> a.karatsuba(b) },
+                2303
+        )
+    }
+
+    @Test
+    fun `Karatsuba zero base 2-16`() {
+        `Test integer base 2-16`(
+                { _, _ -> BigInteger.ZERO },
+                { a, _, base -> a.karatsuba(LargeNumber.zero(base)) },
+                2303
         )
     }
 }
