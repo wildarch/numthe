@@ -8,9 +8,8 @@ import kotlin.test.assertEquals
  */
 
 class MultiplyTest {
-
     @Test
-    fun  ArithmeticTest() {
+    fun  multiplyTest() {
         var ln0 = LargeNumber(10, 2)
         var ln1 = LargeNumber(10, 3)
         var expected = LargeNumber(10, 6).toString()
@@ -29,6 +28,4 @@ class MultiplyTest {
         result = ln0.times(ln1).toString()
         assertEquals(expected, result, "basic 479*513 base 10")
     }
-
-
 }
