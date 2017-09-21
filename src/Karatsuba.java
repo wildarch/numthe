@@ -54,9 +54,7 @@ public class Karatsuba {
         // Compute 3 half length multiplications
         LargeNumber z2 = x1.karatsuba(y1); // z2 = xhi * yhi
         LargeNumber z0 = x0.karatsuba(y0); // z0 = xlo * ylo
-        LargeNumber z1 = (x1.plus(x0)).karatsuba(y1.plus(y0)); // z1 = (xhiylo + xloyhi)
-
-        z1 = z1.minus(z0).minus(z2); // xhiylo + xloyhi = (xhi +xlo)(yhi +ylo) - xhiyhi - xloylo
+        LargeNumber z1 = (x1.plus(x0)).karatsuba(y1.plus(y0)).minus(z0).minus(z2); // z1 = (xhi +xlo)(yhi +ylo) - xhiyhi - xloylo
 
         // Compose results by shifitng and additions
         z2.shift(n);
