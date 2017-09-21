@@ -28,4 +28,28 @@ class MultiplyTest {
         result = ln0.times(ln1).toString()
         assertEquals(expected, result, "basic 479*513 base 10")
     }
+
+    @Test
+    fun multiplyLeadZero() {
+        var ln0 = LargeNumber(10, 0, 2)
+        var ln1 = LargeNumber(10, 0, 3)
+        var expected = LargeNumber(10, 6).toString()
+        var result = ln0.times(ln1).toString()
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun multiplyVsKaratsuba() {
+        for (a in 0..1000) {
+            for (b in 0..1000) {
+                var aL = LargeNumber.parseNumber(a.toString(), 10)
+                var bL = LargeNumber.parseNumber(b.toString(), 10)
+                if (aL.wordCount() != bL.wordCount()) {
+                    continue
+                }
+                println(aL.toString() + " " + bL.toString())
+                assertEquals(aL.times(bL).toString(), aL.karatsuba(bL).toString())
+            }
+        }
+    }
 }
