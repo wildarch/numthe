@@ -79,7 +79,7 @@ public class InputParser {
         s += "radix: " + radix + "\n";
         s += "operation: " + operation + "\n";
         s += "x: " + x + "\n";
-        s += "y:" + y + "\n";
+        s += "y: " + y + "\n";
         if (answer != null) {
             s += "answer: " + answer + "\n";
         }

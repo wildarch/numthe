@@ -1,5 +1,5 @@
-[radix] 10
+[radix] 16
 [karatsuba]
-[x] 100
-[y] 119
-# [answer] 19900
+[x] eed50d6aa53e51691add
+[y] -f9027b863f654daae6a8
+# [answer] -e84f8af471ab1bb45d20f1a95313171b2ade2f08

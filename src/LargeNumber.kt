@@ -118,7 +118,9 @@ data class LargeNumber(
                 val parsedDigit = Integer.parseInt(char.toString(), base)
                 digitList.add(parsedDigit)
             }
-
+            if (digitList.size == 0) {
+                digitList.add(0)
+            }
             return LargeNumber(base, sign, digitList)
         }
     }
@@ -204,8 +206,8 @@ data class LargeNumber(
         if (this.digits.size % 2 == 1) {
             this.digits.add(0, 0);
         }
-        val a = digits.subList(0, digits.size/2)
-        val b = digits.subList(digits.size/2, digits.size);
+        val a = ArrayList(digits.subList(0, digits.size/2))
+        val b = ArrayList(digits.subList(digits.size/2, digits.size))
         return Pair(
                 LargeNumber(base, sign, a),
                 LargeNumber(base, sign, b)
