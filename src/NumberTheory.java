@@ -27,14 +27,4 @@ public class NumberTheory {
             e.printStackTrace();
         }
     }
-
-    /**
-     * @author Daan de Graaf
-     */
-    static class ResultMismatchException extends RuntimeException {
-
-        ResultMismatchException(String message) {
-            super(message);
-        }
-    }
 }
