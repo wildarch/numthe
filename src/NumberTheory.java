@@ -16,6 +16,8 @@ public class NumberTheory {
             System.out.println(parser);
             LargeNumber answer = parser.getOperation().execute(parser.getX(), parser.getY());
             System.out.println("answer: " + answer + " (computed)");
+            System.out.println(Tracker.stats());
+
         }
         catch (InputParser.ParseException e) {
             System.err.println("Could not parse: " + e.getMessage());
