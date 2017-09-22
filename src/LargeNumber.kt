@@ -189,7 +189,7 @@ data class LargeNumber(
     fun size() = digits.size
 
     /**
-     * Multiply to large numbers with the same base using Karatsuba's algorithm.
+     * Multiply two large numbers with the same base using Karatsuba's algorithm.
      *
      * @return `this*other`
      * @throws IllegalArgumentException When the number bases don't match.
@@ -202,9 +202,16 @@ data class LargeNumber(
         return Karatsuba().execute(this, other);
     }
 
+    /**
+     * Splits this into an upper and lower part
+     *
+     * If the number of digits is odd, an extra '0' digit is added as most significant digit
+     *
+     * @return (upper, lower) with upper.size() == lower.size() == ceil(this.size()/2)
+     */
     fun split(): Pair<LargeNumber, LargeNumber> {
         if (this.digits.size % 2 == 1) {
-            this.digits.add(0, 0);
+            this.digits.add(0, 0)
         }
         val a = ArrayList(digits.subList(0, digits.size/2))
         val b = ArrayList(digits.subList(digits.size/2, digits.size))
