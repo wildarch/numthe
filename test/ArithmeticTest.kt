@@ -115,4 +115,12 @@ class ArithmeticTest {
                 2303
         )
     }
+
+    @Test
+    fun `Crazy big number addition`() {
+        val digits = 1000000
+        val a = LargeNumber.parseNumber("1".repeat(digits), 2)
+        val b = LargeNumber.parseNumber("1".repeat(digits), 2)
+        System.out.println(a + b)
+    }
 }
