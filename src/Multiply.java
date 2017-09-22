@@ -23,39 +23,37 @@ public class Multiply {
         base = x.getBase();
 
         solve();
-        //result.add(6);
-        //sign = Sign.POSITIVE;
-        //base = 10;
-        //Collections.reverse(result); // Switch around because we scanned from right to left
         return new LargeNumber(base, sign, result);
     }
 
     /**
      * Solves the multiplication with the algorithm from lecture notes
+     * The z is replaced by integer list 'result'
+     * The tracker keeps track of the amount of elementary operations
+     *
+     * Note: The zero index from the algorithm is the last index in the program
      */
 
     private void solve() {
-        //System.out.println("x_size " + x.size());
-        //System.out.println("y_size " + y.size());
         for (int i = 0; i <= x.size() * y.size(); i++) {
-            result.add(0);
-            //System.out.println("added 0");
+            result.add(0); // make result large enough to hold all digits
         }
 
         for (int i = 0; i <= x.size() - 1; i++) {
             int carry = 0;
             for (int j = 0; j <= y.size() - 1; j++) {
                 int t = result.get(result.size() - 1 - (i + j)) + x.get(x.size() - 1 - i) * y.get(y.size() - 1 - j) + carry;
-                //System.out.println("t: " + t);
-                carry = t / base;
-                //System.out.println("carry: " + carry);
+                Tracker.addition();
+                Tracker.addition();
+                Tracker.multiplication();
+                carry = t / base; // A shift, so for free
                 result.set(result.size() - 1 - (i + j), t - carry * base);
-                //System.out.println("On index " + (result.size() - 1 - (i + j)) + " we set " + (t - carry * base));
-                //System.out.println("Index " + (result.size() - 1 - (i + j)) + " has value " + result.get(result.size() - 2 - (i + j)));
+                Tracker.subtraction();
             }
             result.set(result.size() - i - y.size() - 1, carry);
         }
 
+        // Determine sign for result
         if (x.getSign() == y.getSign()) {
             this.sign = Sign.POSITIVE;
         }
