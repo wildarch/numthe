@@ -70,4 +70,7 @@ object Tracker {
      */
     @JvmStatic
     fun getTotal() = count[0] + count[1] + count[2]
+
+    @JvmStatic
+    fun stats() = "Additions/Subtractions: ${Tracker.getAdditions()}/${getSubtractions()}\n Multiplications: ${getMultiplications()}"
 }
