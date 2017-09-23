@@ -80,9 +80,9 @@ public class InputParser {
         s += "operation: " + operation + "\n";
         s += "x: " + x + "\n";
         s += "y: " + y + "\n";
-        if (answer != null) {
+        /*if (answer != null) {
             s += "answer: " + answer + "\n";
-        }
+        }*/
         return s;
     }
 

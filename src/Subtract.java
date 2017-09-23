@@ -21,11 +21,17 @@ public class Subtract extends AddSubtract {
             // SUBTRACT two digits, including the carry if needed
             int sum = carry ? x.get(i) - y.get(i) - 1 : x.get(i) - y.get(i);
 
+            Tracker.subtraction();
+            if (carry) {
+                Tracker.subtraction();
+            }
+
             // Set carry if sum is negative
             carry = sum < 0;
 
             // If the carry is set, add the base to the sum
             if (carry) {
+                Tracker.addition();
                 sum += base;
             }
 

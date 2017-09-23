@@ -19,6 +19,11 @@ public class Add extends AddSubtract {
             // ADD two digits together, adding the carry if needed
             int sum = carry ? x.get(i) + y.get(i) + 1 : x.get(i) + y.get(i);
 
+            Tracker.addition();
+            if (carry) {
+                Tracker.addition();
+            }
+
             // Set carry if sum is larger or equal to base
             carry = sum >= base;
 
